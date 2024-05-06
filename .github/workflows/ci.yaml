@@ -267,7 +267,7 @@ jobs:
           args: --severity-threshold=high
 
   update-manifest-files:
-    needs: [frontend-image, backend-image, update-manifest-files]
+    needs: [frontend-image, backend-image, k8s-manifest-scan]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
