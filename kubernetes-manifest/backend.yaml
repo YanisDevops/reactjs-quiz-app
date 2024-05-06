@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: yanishub1/backend-api:latest
+        image: yanishub1/backend:af800a90b01932803b3326e77b9b4024eb958c19
         ports:
         - containerPort: 3000
         env:

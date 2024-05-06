@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: yanishub1/frontend-js:latest
+        image: yanishub1/frontend:af800a90b01932803b3326e77b9b4024eb958c19
         env:
         - name: VITE_REACT_APP_API_URL
           value: "http://quizapp.yanisdevsecops.com/api/questions"
