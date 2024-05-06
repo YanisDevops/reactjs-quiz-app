@@ -282,10 +282,10 @@ jobs:
           echo ${{ github.sha }}
 
           # Update Backend Image in Deployment Manifest
-          sed -i "s#${{ secrets.DOCKER_USERNAME }}.*#${{ secrets.DOCKER_USERNAME }}/backend:${{ github.sha }}#g" kubernetes-manifest/backend.yaml
+          sed -i "s#${{ secrets.DOCKER_USERNAME }}.*#${{ secrets.DOCKER_USERNAME }}/backend-api:${{ github.sha }}#g" kubernetes-manifest/backend.yaml
 
           # Update Frontend Image in Deployment Manifest
-          sed -i "s#${{ secrets.DOCKER_USERNAME }}.*#${{ secrets.DOCKER_USERNAME }}/frontend:${{ github.sha }}#g" kubernetes-manifest/frontend.yaml
+          sed -i "s#${{ secrets.DOCKER_USERNAME }}.*#${{ secrets.DOCKER_USERNAME }}/frontend-js:${{ github.sha }}#g" kubernetes-manifest/frontend.yaml
           
           # Update Database Image in Kubernetes Job Manifest
           #sed -i "s#${{ secrets.DOCKER_USERNAME }}.*#${{ secrets.DOCKER_USERNAME }}/database:${{ github.sha }}#g" kubernetes-manifest/database/job.yaml
