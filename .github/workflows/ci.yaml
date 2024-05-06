@@ -266,3 +266,32 @@ jobs:
           file: kubernetes-manifest/
           args: --severity-threshold=high
 
+  update-manifest-files:
+    needs: [frontend-image, backend-image, update-manifest-files]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: YanisDevops/reactjs-quiz-app
+          ref: 'main'
+          token: ${{ secrets._GITHUB_TOKEN}}
+      - name: setup git config
+        run: |
+          git config --global user.email "${{ secrets.GIT_EMAIL }}"
+          git config --global user.name "${{ secrets.GIT_USERNAME }}"
+          echo ${{ github.sha }}
+
+          # Update Backend Image in Deployment Manifest
+          sed -i "s#${{ secrets.DOCKER_USERNAME }}.*#${{ secrets.DOCKER_USERNAME }}/backend:${{ github.sha }}#g" kubernetes-manifest/backend/deployment.yaml
+
+          # Update Frontend Image in Deployment Manifest
+          sed -i "s#${{ secrets.DOCKER_USERNAME }}.*#${{ secrets.DOCKER_USERNAME }}/frontend:${{ github.sha }}#g" kubernetes-manifest/frontend/deployment.yaml
+          
+          # Update Database Image in Kubernetes Job Manifest
+          #sed -i "s#${{ secrets.DOCKER_USERNAME }}.*#${{ secrets.DOCKER_USERNAME }}/database:${{ github.sha }}#g" kubernetes-manifest/database/job.yaml
+          
+          git add -A
+          git commit -am "Update image for - ${{ github.sha }} [skip ci]"
+      - run: echo ${{ github }}
+      - run: git push origin main
+
