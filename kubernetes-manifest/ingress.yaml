@@ -10,7 +10,7 @@ metadata:
 spec:
   ingressClassName: alb
   rules:
-    - host: quizapp.cloudcorehub.com
+    - host: k8s-quiz-mainlb-08072365b9-1762418935.us-east-1.elb.amazonaws.com/api/questions #quizapp.cloudcorehub.com
       http:
         paths:
           - path: /api/questions
